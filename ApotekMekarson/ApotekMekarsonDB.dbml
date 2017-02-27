@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ApotekMekarson" Class="ApotekMekarsonDB" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=ALVIN-PC\SQLEXPRESS;Initial Catalog=ApotekMekarson;Integrated Security=True" SettingsObjectName="ApotekMekarson.Properties.Settings" SettingsPropertyName="ApotekMekarsonConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbDetail_Pembelian" Member="tbDetail_Pembelians">
+    <Type Name="tbDetail_Pembelian">
+      <Column Name="Id_Detail_Pembelian" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Bonus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Harga" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Sub_Total" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="No_Faktur" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="No_Batch" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Association Name="tbObat_tbDetail_Pembelian" Member="tbObat" ThisKey="No_Batch" OtherKey="No_Batch" Type="tbObat" IsForeignKey="true" />
+      <Association Name="tbPembelian_tbDetail_Pembelian" Member="tbPembelian" ThisKey="No_Faktur" OtherKey="No_faktur" Type="tbPembelian" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbSupplier" Member="tbSuppliers">
+    <Type Name="tbSupplier">
+      <Column Name="ID_Supplier" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nama_Supplier" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Alamat_Supplier" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="No_Telepon" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="tbSupplier_tbPembelian" Member="tbPembelians" ThisKey="ID_Supplier" OtherKey="ID_Supplier" Type="tbPembelian" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbDetail_Penjualan" Member="tbDetail_Penjualans">
+    <Type Name="tbDetail_Penjualan">
+      <Column Name="Id_Detail_Penjualan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sub_Total" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ID_Penjualan" Type="System.String" DbType="NChar(8)" CanBeNull="true" />
+      <Column Name="No_Batch" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Association Name="tbObat_tbDetail_Penjualan" Member="tbObat" ThisKey="No_Batch" OtherKey="No_Batch" Type="tbObat" IsForeignKey="true" />
+      <Association Name="tbPenjualan_tbDetail_Penjualan" Member="tbPenjualan" ThisKey="ID_Penjualan" OtherKey="Id_Penjualan" Type="tbPenjualan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbDetail_Penjualan_Resep" Member="tbDetail_Penjualan_Reseps">
+    <Type Name="tbDetail_Penjualan_Resep">
+      <Column Name="ID_Detail_Penjualan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sub_Total" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ID_Penjualan_Resep" Type="System.String" DbType="NChar(8)" CanBeNull="true" />
+      <Column Name="ID_Racikan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbPenjualan_Resep_tbDetail_Penjualan_Resep" Member="tbPenjualan_Resep" ThisKey="ID_Penjualan_Resep" OtherKey="ID_Penjualan_Resep" Type="tbPenjualan_Resep" IsForeignKey="true" />
+      <Association Name="tbRacikan_tbDetail_Penjualan_Resep" Member="tbRacikan" ThisKey="ID_Racikan" OtherKey="Id_Racikan" Type="tbRacikan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbDetail_Retur" Member="tbDetail_Returs">
+    <Type Name="tbDetail_Retur">
+      <Column Name="Id_Detail_Retur" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ID_Retur" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="No_Batch" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="IdDetailPembelian" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbObat_tbDetail_Retur" Member="tbObat" ThisKey="No_Batch" OtherKey="No_Batch" Type="tbObat" IsForeignKey="true" />
+      <Association Name="tbRetur_tbDetail_Retur" Member="tbRetur" ThisKey="ID_Retur" OtherKey="ID_Retur" Type="tbRetur" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbKaryawan" Member="tbKaryawans">
+    <Type Name="tbKaryawan">
+      <Column Name="ID_Karyawan" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nama_Karyawan" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Alamat_Karyawan" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="No_Telepon" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Jenis_Karyawan" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="tbKaryawan_tbPembelian" Member="tbPembelians" ThisKey="ID_Karyawan" OtherKey="ID_Karyawan" Type="tbPembelian" />
+      <Association Name="tbKaryawan_tbPenjualan" Member="tbPenjualans" ThisKey="ID_Karyawan" OtherKey="ID_Karyawan" Type="tbPenjualan" />
+      <Association Name="tbKaryawan_tbPenjualan_Resep" Member="tbPenjualan_Reseps" ThisKey="ID_Karyawan" OtherKey="ID_Karyawan" Type="tbPenjualan_Resep" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbObat" Member="tbObats">
+    <Type Name="tbObat">
+      <Column Name="No_Batch" Type="System.String" DbType="NChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nama_Obat" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Stok_Minim" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Harga_Beli" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Harga_Jual" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Jenis_Barang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Satuan" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Nama_Supplier" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Keterangan" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="tbObat_tbDetail_Pembelian" Member="tbDetail_Pembelians" ThisKey="No_Batch" OtherKey="No_Batch" Type="tbDetail_Pembelian" />
+      <Association Name="tbObat_tbDetail_Penjualan" Member="tbDetail_Penjualans" ThisKey="No_Batch" OtherKey="No_Batch" Type="tbDetail_Penjualan" />
+      <Association Name="tbObat_tbDetail_Retur" Member="tbDetail_Returs" ThisKey="No_Batch" OtherKey="No_Batch" Type="tbDetail_Retur" />
+      <Association Name="tbObat_tbObat_Racikan" Member="tbObat_Racikans" ThisKey="No_Batch" OtherKey="No_Batch" Type="tbObat_Racikan" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbObat_Racikan" Member="tbObat_Racikans">
+    <Type Name="tbObat_Racikan">
+      <Column Name="No_Batch" Type="System.String" DbType="NChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id_Racikan" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Tanggal_Dibuat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbObat_tbObat_Racikan" Member="tbObat" ThisKey="No_Batch" OtherKey="No_Batch" Type="tbObat" IsForeignKey="true" />
+      <Association Name="tbRacikan_tbObat_Racikan" Member="tbRacikan" ThisKey="Id_Racikan" OtherKey="Id_Racikan" Type="tbRacikan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbPembelian" Member="tbPembelians">
+    <Type Name="tbPembelian">
+      <Column Name="No_faktur" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Tanggal_Pembelian" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Total_Pembelian" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Jatuh_Tempo" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="ID_Supplier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ID_Karyawan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tbPembelian_tbDetail_Pembelian" Member="tbDetail_Pembelians" ThisKey="No_faktur" OtherKey="No_Faktur" Type="tbDetail_Pembelian" />
+      <Association Name="tbPembelian_tbRetur" Member="tbReturs" ThisKey="No_faktur" OtherKey="No_Faktur" Type="tbRetur" />
+      <Association Name="tbKaryawan_tbPembelian" Member="tbKaryawan" ThisKey="ID_Karyawan" OtherKey="ID_Karyawan" Type="tbKaryawan" IsForeignKey="true" />
+      <Association Name="tbSupplier_tbPembelian" Member="tbSupplier" ThisKey="ID_Supplier" OtherKey="ID_Supplier" Type="tbSupplier" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbPenjualan" Member="tbPenjualans">
+    <Type Name="tbPenjualan">
+      <Column Name="Id_Penjualan" Type="System.String" DbType="NChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Tanggal_Penjualan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Total_Penjualan" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ID_Karyawan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tbPenjualan_tbDetail_Penjualan" Member="tbDetail_Penjualans" ThisKey="Id_Penjualan" OtherKey="ID_Penjualan" Type="tbDetail_Penjualan" />
+      <Association Name="tbKaryawan_tbPenjualan" Member="tbKaryawan" ThisKey="ID_Karyawan" OtherKey="ID_Karyawan" Type="tbKaryawan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbPenjualan_Resep" Member="tbPenjualan_Reseps">
+    <Type Name="tbPenjualan_Resep">
+      <Column Name="ID_Penjualan_Resep" Type="System.String" DbType="NChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Tanggal_Penjualan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Total_Penjualan" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Apoteker" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Nama_Dokter" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ID_Karyawan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tbPenjualan_Resep_tbDetail_Penjualan_Resep" Member="tbDetail_Penjualan_Reseps" ThisKey="ID_Penjualan_Resep" OtherKey="ID_Penjualan_Resep" Type="tbDetail_Penjualan_Resep" />
+      <Association Name="tbKaryawan_tbPenjualan_Resep" Member="tbKaryawan" ThisKey="ID_Karyawan" OtherKey="ID_Karyawan" Type="tbKaryawan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbRacikan" Member="tbRacikans">
+    <Type Name="tbRacikan">
+      <Column Name="Id_Racikan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Harga" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="tbRacikan_tbDetail_Penjualan_Resep" Member="tbDetail_Penjualan_Reseps" ThisKey="Id_Racikan" OtherKey="ID_Racikan" Type="tbDetail_Penjualan_Resep" />
+      <Association Name="tbRacikan_tbObat_Racikan" Member="tbObat_Racikans" ThisKey="Id_Racikan" OtherKey="Id_Racikan" Type="tbObat_Racikan" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbRetur" Member="tbReturs">
+    <Type Name="tbRetur">
+      <Column Name="ID_Retur" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Tanggal_Retur" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="No_Faktur" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tbRetur_tbDetail_Retur" Member="tbDetail_Returs" ThisKey="ID_Retur" OtherKey="ID_Retur" Type="tbDetail_Retur" />
+      <Association Name="tbPembelian_tbRetur" Member="tbPembelian" ThisKey="No_Faktur" OtherKey="No_faktur" Type="tbPembelian" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.SP_DeletePenjualan" Method="SP_DeletePenjualan">
+    <Parameter Name="ID_Penjualan" Parameter="iD_Penjualan" Type="System.String" DbType="NChar(8)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UpdatePassword" Method="SP_UpdatePassword">
+    <Parameter Name="ID_Karyawan" Parameter="iD_Karyawan" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusDetail" Method="SP_HapusDetail">
+    <Parameter Name="Id_detail_Penjualan" Parameter="id_detail_Penjualan" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusDetailPembelian" Method="SP_HapusDetailPembelian">
+    <Parameter Name="ID_Detail_Pembelian" Parameter="iD_Detail_Pembelian" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusDetailRetur" Method="SP_HapusDetailRetur">
+    <Parameter Name="ID_Detail_Retur" Parameter="iD_Detail_Retur" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Qty" Parameter="qty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NoBatch" Parameter="noBatch" Type="System.String" DbType="NChar(20)" />
+    <Parameter Name="IdDetailPembelian" Parameter="idDetailPembelian" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusObatRacikan" Method="SP_HapusObatRacikan">
+    <Parameter Name="No_Batch" Parameter="no_Batch" Type="System.String" DbType="NChar(20)" />
+    <Parameter Name="Id_Racikan" Parameter="id_Racikan" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusPembelian" Method="SP_HapusPembelian">
+    <Parameter Name="No_Faktur" Parameter="no_Faktur" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusPenjualanResep" Method="SP_HapusPenjualanResep">
+    <Parameter Name="ID_Penjualan_Resep" Parameter="iD_Penjualan_Resep" Type="System.String" DbType="NChar(8)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusRacikan" Method="SP_HapusRacikan">
+    <Parameter Name="ID_Racikan" Parameter="iD_Racikan" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusResep" Method="SP_HapusResep">
+    <Parameter Name="ID_Penjualan_Resep" Parameter="iD_Penjualan_Resep" Type="System.String" DbType="NChar(8)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusRetur" Method="SP_HapusRetur">
+    <Parameter Name="ID_Retur" Parameter="iD_Retur" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusSemuaDetailPembelian" Method="SP_HapusSemuaDetailPembelian">
+    <Parameter Name="No_Faktur" Parameter="no_Faktur" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_HapusSemuaDetailPenjualan" Method="SP_HapusSemuaDetailPenjualan">
+    <Parameter Name="ID_Penjualan" Parameter="iD_Penjualan" Type="System.String" DbType="NChar(8)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahDataObat" Method="SP_TambahDataObat">
+    <Parameter Name="No_Batch" Parameter="no_Batch" Type="System.String" DbType="NChar(20)" />
+    <Parameter Name="Nama_Obat" Parameter="nama_Obat" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Qty" Parameter="qty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Stok_Minim" Parameter="stok_Minim" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Harga_Beli" Parameter="harga_Beli" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Harga_Jual" Parameter="harga_Jual" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Jenis_Barang" Parameter="jenis_Barang" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Satuan" Parameter="satuan" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Nama_Supplier" Parameter="nama_Supplier" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Keterangan" Parameter="keterangan" Type="System.String" DbType="NVarChar(250)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahDataSupplier" Method="SP_TambahDataSupplier">
+    <Parameter Name="Nama_Supplier" Parameter="nama_Supplier" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Alamat_Supplier" Parameter="alamat_Supplier" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="No_Telepon" Parameter="no_Telepon" Type="System.String" DbType="NVarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahDetailPembelian" Method="SP_TambahDetailPembelian">
+    <Parameter Name="Qty" Parameter="qty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Bonus" Parameter="bonus" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Harga" Parameter="harga" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Sub_Total" Parameter="sub_Total" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="No_Faktur" Parameter="no_Faktur" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="No_Batch" Parameter="no_Batch" Type="System.String" DbType="NChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahDetailPenjualan" Method="SP_TambahDetailPenjualan">
+    <Parameter Name="Qty" Parameter="qty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Sub_Total" Parameter="sub_Total" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Id_Penjualan" Parameter="id_Penjualan" Type="System.String" DbType="NChar(8)" />
+    <Parameter Name="No_Batch" Parameter="no_Batch" Type="System.String" DbType="NChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahDetailRetur" Method="SP_TambahDetailRetur">
+    <Parameter Name="Qty" Parameter="qty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ID_Retur" Parameter="iD_Retur" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NoBatch" Parameter="noBatch" Type="System.String" DbType="NChar(20)" />
+    <Parameter Name="IdDetailPembelian" Parameter="idDetailPembelian" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahKaryawan" Method="SP_TambahKaryawan">
+    <Parameter Name="ID_Karyawan" Parameter="iD_Karyawan" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Nama_Karyawan" Parameter="nama_Karyawan" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Alamat_Karyawan" Parameter="alamat_Karyawan" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="No_Telepon" Parameter="no_Telepon" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Jenis_Karyawan" Parameter="jenis_Karyawan" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahObatRacikan" Method="SP_TambahObatRacikan">
+    <Parameter Name="No_Batch" Parameter="no_Batch" Type="System.String" DbType="NChar(20)" />
+    <Parameter Name="ID_Racikan" Parameter="iD_Racikan" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Tanggal_Dibuat" Parameter="tanggal_Dibuat" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Qty" Parameter="qty" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahPembelian" Method="SP_TambahPembelian">
+    <Parameter Name="No_Faktur" Parameter="no_Faktur" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Tanggal_Pembelian" Parameter="tanggal_Pembelian" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Total_Pembelian" Parameter="total_Pembelian" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Jatuh_Tempo" Parameter="jatuh_Tempo" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(11)" />
+    <Parameter Name="ID_Supplier" Parameter="iD_Supplier" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ID_Karyawan" Parameter="iD_Karyawan" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahPenjualan" Method="SP_TambahPenjualan">
+    <Parameter Name="ID_Penjualan" Parameter="iD_Penjualan" Type="System.String" DbType="NChar(8)" />
+    <Parameter Name="Tanggal_Penjualan" Parameter="tanggal_Penjualan" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Total_Penjualan" Parameter="total_Penjualan" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="ID_Karyawan" Parameter="iD_Karyawan" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahPenjualanResep" Method="SP_TambahPenjualanResep">
+    <Parameter Name="ID_Penjualan_Resep" Parameter="iD_Penjualan_Resep" Type="System.String" DbType="NChar(8)" />
+    <Parameter Name="Tanggal_Penjualan" Parameter="tanggal_Penjualan" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Total_Penjualan" Parameter="total_Penjualan" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Apoteker" Parameter="apoteker" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Nama_Dokter" Parameter="nama_Dokter" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="ID_Karyawan" Parameter="iD_Karyawan" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahRacikan" Method="SP_TambahRacikan">
+    <Parameter Name="Harga" Parameter="harga" Type="System.Decimal" DbType="Money" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_TambahRetur" Method="SP_TambahRetur">
+    <Parameter Name="TanggalRetur" Parameter="tanggalRetur" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="NoFaktur" Parameter="noFaktur" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UbahDataKaryawan" Method="SP_UbahDataKaryawan">
+    <Parameter Name="ID_Karyawan" Parameter="iD_Karyawan" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Nama_Karyawan" Parameter="nama_Karyawan" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Alamat_Karyawan" Parameter="alamat_Karyawan" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="No_Telepon" Parameter="no_Telepon" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Jenis_Karyawan" Parameter="jenis_Karyawan" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UbahDataObat" Method="SP_UbahDataObat">
+    <Parameter Name="No_Batch" Parameter="no_Batch" Type="System.String" DbType="NChar(20)" />
+    <Parameter Name="Nama_Obat" Parameter="nama_Obat" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Qty" Parameter="qty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Stok_Minimal" Parameter="stok_Minimal" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Harga_Beli" Parameter="harga_Beli" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Harga_Jual" Parameter="harga_Jual" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Jenis_Barang" Parameter="jenis_Barang" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Satuan" Parameter="satuan" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Nama_Supplier" Parameter="nama_Supplier" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Keterangan" Parameter="keterangan" Type="System.String" DbType="NVarChar(250)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UbahPembelian" Method="SP_UbahPembelian">
+    <Parameter Name="No_Faktur" Parameter="no_Faktur" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Tanggal_Pembelian" Parameter="tanggal_Pembelian" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Total_Pembelian" Parameter="total_Pembelian" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Jatuh_Tempo" Parameter="jatuh_Tempo" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(11)" />
+    <Parameter Name="ID_Supplier" Parameter="iD_Supplier" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ID_Karyawan" Parameter="iD_Karyawan" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UbahPenjualan" Method="SP_UbahPenjualan">
+    <Parameter Name="ID_Penjualan" Parameter="iD_Penjualan" Type="System.String" DbType="NChar(8)" />
+    <Parameter Name="Tanggal_Penjualan" Parameter="tanggal_Penjualan" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Total_Penjualan" Parameter="total_Penjualan" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="ID_Karyawan" Parameter="iD_Karyawan" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UbahStatus" Method="SP_UbahStatus">
+    <Parameter Name="No_Faktur" Parameter="no_Faktur" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(11)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UbahSupplier" Method="SP_UbahSupplier">
+    <Parameter Name="ID_Supplier" Parameter="iD_Supplier" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nama_Supplier" Parameter="nama_Supplier" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Alamat_Supplier" Parameter="alamat_Supplier" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="No_Telepon" Parameter="no_Telepon" Type="System.String" DbType="NVarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_UbahTotalPenjualan" Method="SP_UbahTotalPenjualan">
+    <Parameter Name="Total_Penjualan" Parameter="total_Penjualan" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="ID_Resep" Parameter="iD_Resep" Type="System.String" DbType="NChar(8)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.FC_BuatIDPenjualanBaru" Method="FC_BuatIDPenjualanBaru" IsComposable="true">
+    <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.FC_HitungTotalPenjualanResep" Method="FC_HitungTotalPenjualanResep" IsComposable="true">
+    <Parameter Name="No_Resep" Parameter="no_Resep" Type="System.String" DbType="NChar(8)" />
+    <Return Type="System.Decimal" />
+  </Function>
+  <Function Name="dbo.FC_BuatIDPenjualanResep" Method="FC_BuatIDPenjualanResep" IsComposable="true">
+    <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.FC_HitungTotalPembelian" Method="FC_HitungTotalPembelian" IsComposable="true">
+    <Parameter Name="No_Faktur" Parameter="no_Faktur" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Decimal" />
+  </Function>
+  <Function Name="dbo.FC_HitungTotalPenjualan" Method="FC_HitungTotalPenjualan" IsComposable="true">
+    <Parameter Name="ID_Penjualan" Parameter="iD_Penjualan" Type="System.String" DbType="NChar(8)" />
+    <Return Type="System.Decimal" />
+  </Function>
+  <Function Name="dbo.SP_TambahDetailPenjualanResep" Method="SP_TambahDetailPenjualanResep">
+    <Parameter Name="Qty" Parameter="qty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Sub_Total" Parameter="sub_Total" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="ID_Penjualan_Resep" Parameter="iD_Penjualan_Resep" Type="System.String" DbType="NChar(8)" />
+    <Parameter Name="ID_Racikan" Parameter="iD_Racikan" Type="System.Int32" DbType="Int" />
+    <Parameter Name="No_Batch" Parameter="no_Batch" Type="System.String" DbType="NChar(20)" />
+    <Parameter Name="QtyPerObat" Parameter="qtyPerObat" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
